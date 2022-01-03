@@ -23,8 +23,6 @@
 ## Technologies Used
 - Nodejs
 - React
-- Express
-- Mongo Db
 
 
 ## Features
@@ -67,10 +65,10 @@ user.
 - The app must be monitored using an online monitoring tool.
 
 
-
-
 ## Usage
+User Stories:
 
+[User Stories.docx](https://github.com/Unna27/meet/files/7802733/User.Stories.docx)
 
 
 ## Project Status
