@@ -1,4 +1,4 @@
-/* 'use strict';
+/*'use strict';
 export async function hello(event) {
   return {
     statusCode: 200,
@@ -81,38 +81,34 @@ const oAuth2Client = new google.auth.OAuth2(
 // use the code received in getAuthURL to get the access token
 
 module.exports.getAccessToken = async (event) => {
-  // Create a new OAuthClient again. In serverless, there is no state or instance of globally declared OAuthClient is maintained.
-  // The values used to instantiate the OAuthClient are at the top of the file
-  
+// The values used to instantiate the OAuthClient are at the top of the file
   const oAuth2Client = new google.auth.OAuth2(
     client_id,
     client_secret,
     redirect_uris[0]
   );
+  // Decode authorization code extracted from the URL query
+  const code = decodeURIComponent(`${event.pathParameters.code}`);
 
- // Decode authorization code extracted from the URL query
- const code = decodeURIComponent(`${event.pathParameters.code}`);
-  // return the Token
-
- return new Promise((resolve, reject) => {
+  return new Promise((resolve, reject) => {
     /**
      *  Exchange authorization code for access token with a “callback” after the exchange,
      *  The callback in this case is an arrow function with the results as parameters: “err” and “token.”
      */
 
-    oAuth2Client.getToken(code, (err,token) => {
-      if(err) {
+    oAuth2Client.getToken(code, (err, token) => {
+      if (err) {
         return reject(err);
       }
       return resolve(token);
     });
   })
     .then((token) => {
-        // Respond with OAuth token 
+      // Respond with OAuth token 
       return {
         statusCode: 200,
         headers: {
-          "Access-Control-Allow-Origin": "*"
+          "Access-Control-Allow-Origin": "*",
         },
         body: JSON.stringify(token),
       };
@@ -128,4 +124,63 @@ module.exports.getAccessToken = async (event) => {
         body: JSON.stringify(err),
       };
     });
-}
+};
+
+// use the accesstoken received in getAccessToken to get the calendarevents
+
+module.exports.getCalendarEvents = async (event) => {
+// The values used to instantiate the OAuthClient are at the top of the file
+  const oAuth2Client = new google.auth.OAuth2(
+    client_id,
+    client_secret,
+    redirect_uris[0]
+  );
+
+ // Decode accesstoken extracted from the URL query
+  const access_token = decodeURIComponent(`${event.pathParameters.access_token}`);
+
+  // Set the access token as credentials in oAuth2Client
+  oAuth2Client.setCredentials({access_token});
+
+  return new Promise((resolve, reject) => {
+    // Get a list of events from the “fullstackwebdev” Google calendar using oAuth2Client for authentication. 
+    // Use a callback to get the error and response and use these values to resolve or reject the promise.
+    calendar.events.list(
+        {
+          calendarId: calendar_id,
+          auth: oAuth2Client,
+          timeMin: new Date().toISOString(),
+          singleEvents: true,
+          orderBy: "startTime",
+        },
+        (error, response) => {
+          if (error) {
+            reject(error);
+          } else {
+            resolve(response);
+          }
+        }
+      );
+    })
+    .then((results) => {
+      // Respond with calendar events
+      return {
+        statusCode: 200,
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+        },
+        body: JSON.stringify({ events: results.data.items }),
+      };
+    })
+    .catch((err) => {
+      // Handle error
+      console.error(err);
+      return {
+        statusCode: 500,
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+        },
+        body: JSON.stringify(err),
+      };
+    });
+};
