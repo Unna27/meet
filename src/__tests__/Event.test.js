@@ -39,10 +39,10 @@ describe('<Event /> component', () => {
       isDisplay: false
     });
     expect(EventWrapper.find('.hidden')).toHaveLength(2);
-    
+
     EventWrapper.find('.eventDetails').simulate('click');
     expect(EventWrapper.state('isDisplay')).toBe(true);
-    console.log(EventWrapper.debug());
+    //console.log(EventWrapper.debug());
     expect(EventWrapper.find('.eventDescription').hasClass('show')).toEqual(true);
     expect(EventWrapper.find('.eventLink').hasClass('show')).toEqual(true);
   });
@@ -55,7 +55,7 @@ describe('<Event /> component', () => {
 
     EventWrapper.find('.eventDetails').simulate('click');
     expect(EventWrapper.state('isDisplay')).toBe(false);
-    console.log(EventWrapper.debug());
+    //console.log(EventWrapper.debug());
     expect(EventWrapper.find('.hidden')).toHaveLength(2);
   });
 
