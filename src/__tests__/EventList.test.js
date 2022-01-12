@@ -4,7 +4,7 @@ import EventList from '../EventList';
 import Event from '../Event';
 import { mockData } from '../mock-data';
 
-/* added initiallu before using mockdata from API
+/* added initially before using mockdata from API
 describe('<EventList /> component', () => {
   test('render correct number of events', () => {
     const EventListWrapper = shallow(<EventList events={[{id:1}, {id:2}, {id:3}, {id:4}]} />);
