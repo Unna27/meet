@@ -3,11 +3,12 @@ import { shallow } from 'enzyme';
 import Event from '../Event';
 import { mockData } from '../mock-data';
 
-
 describe('<Event /> component', () => {
-  let EventWrapper;
+  let EventWrapper, event;
   beforeAll(() => {
-    EventWrapper = shallow(<Event />);
+    event=mockData[0];
+    //console.log(event);
+    EventWrapper = shallow(<Event event={event} />);
   });
  
   test('render event title', () => {
@@ -23,7 +24,7 @@ describe('<Event /> component', () => {
   });
 
   test('render event details button', () => {
-    expect(EventWrapper.find('.eventDetails')).toHaveLength(1);
+    expect(EventWrapper.find('.details-btn')).toHaveLength(1);
   });
 
   test('render event link', () => {
@@ -40,7 +41,7 @@ describe('<Event /> component', () => {
     });
     expect(EventWrapper.find('.hidden')).toHaveLength(2);
 
-    EventWrapper.find('.eventDetails').simulate('click');
+    EventWrapper.find('.details-btn').simulate('click');
     expect(EventWrapper.state('isDisplay')).toBe(true);
     //console.log(EventWrapper.debug());
     expect(EventWrapper.find('.eventDescription').hasClass('show')).toEqual(true);
@@ -52,10 +53,8 @@ describe('<Event /> component', () => {
       isDisplay: true
     });
     expect(EventWrapper.find('.show')).toHaveLength(2);
-
-    EventWrapper.find('.eventDetails').simulate('click');
+    EventWrapper.find('.details-btn').simulate('click');
     expect(EventWrapper.state('isDisplay')).toBe(false);
-    //console.log(EventWrapper.debug());
     expect(EventWrapper.find('.hidden')).toHaveLength(2);
   });
 

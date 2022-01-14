@@ -15,14 +15,15 @@ class Event extends Component {
   }
 
   render() {
+    const event = this.props.event;
     return (
-      <div className='Event'>
-        <h3 className='eventTitle'></h3>
-        <p className='eventStartTime'></p>
-        <p className='eventLocation'></p>
-        <a className={`eventLink ${this.state.isDisplay ? 'show' : 'hidden'}`}>See details on Google Calendar</a>
-        <p className={`eventDescription ${this.state.isDisplay ? 'show' : 'hidden'}`}></p>
-        <button className='eventDetails' onClick={this.handleClick}>{this.state.isDisplay ? 'hide details' : 'show details'}</button>
+      <div className='event'>
+        <h3 className='eventTitle'>{event.summary}</h3>
+        <p className='eventStartTime'>{event.created}</p>
+        <p className='eventLocation'>{event.location}</p>
+        <a href={event.htmlLink} className={`eventLink ${this.state.isDisplay ? 'show' : 'hidden'}`}>See details on Google Calendar</a>
+        <p className={`eventDescription ${this.state.isDisplay ? 'show' : 'hidden'}`}>{event.description}</p>
+        <button className='details-btn' onClick={this.handleClick}>{this.state.isDisplay ? 'hide details' : 'show details'}</button>
       </div>
     )
   } 

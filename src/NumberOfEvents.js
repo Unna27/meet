@@ -11,13 +11,13 @@ class NumberOfEvents extends Component {
     this.setState({
       numEvents: value      
     });
-    console.log(this.state.numEvents);
+    //console.log(this.state.numEvents);
   }
 
 
   render() {
     return (
-      <div className='NumberOfEvents'>
+      <div className='numberOfEvents'>
         <input
           type='number'
           className='eventNumber'

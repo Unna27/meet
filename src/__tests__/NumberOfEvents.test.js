@@ -15,7 +15,7 @@ describe('<NumberOfEvents /> component', () => {
 
   test('renders text input correctly', () => {
     const numEvents = NumberOfEventsWrapper.state('numEvents');
-    console.log(numEvents);
+    //console.log(numEvents);
     expect(NumberOfEventsWrapper.find('.eventNumber').prop('value')).toBe(numEvents);
   });
 
@@ -32,7 +32,7 @@ describe('<NumberOfEvents /> component', () => {
     NumberOfEventsWrapper.setState({
       numEvents: '6'
     });
-    console.log(NumberOfEventsWrapper.state('numEvents'));
+    //console.log(NumberOfEventsWrapper.state('numEvents'));
     expect(Number.isNaN(-NumberOfEventsWrapper.state('numEvents'))).toBe(false)
   })
 });

@@ -6,9 +6,10 @@ import { extractLocations } from '../api';
 
 describe('<CitySearch /> component', () => {
   let locations, CitySearchWrapper;
+  // updateEvents -- empty function is passed to make unit test run successfully
   beforeAll(() => {
     locations = extractLocations(mockData);
-    CitySearchWrapper = shallow(<CitySearch locations ={locations} />);
+    CitySearchWrapper = shallow(<CitySearch locations ={locations} updateEvents={() => {}} />);
   });
  
 
@@ -52,15 +53,31 @@ describe('<CitySearch /> component', () => {
     const filteredLocations = locations.filter((location) => {
       return location.toUpperCase().indexOf(query.toUpperCase()) > -1;
     });
-    expect(CitySearchWrapper.state('suggestions')).toEqual(filteredLocations);
+    expect(CitySearchWrapper.state('suggestions')).toEqual(filteredLocations); // comparing two complex datatypes object or array
   });
 
   test('selecting a suggestion should change query state', () => {
+    //console.log(CitySearchWrapper.debug());
     CitySearchWrapper.setState({
-      query: 'Berlin'  });
+      query: 'London'  });
     const suggestions = CitySearchWrapper.state('suggestions');
     CitySearchWrapper.find('.suggestions li').at(0).simulate('click');
-    expect(CitySearchWrapper.state('query')).toBe(suggestions[0]);
+     expect(CitySearchWrapper.state('query')).toBe(suggestions[0]);
   });
 
+  test("selecting CitySearch input reveals the suggestions list", () => {
+    CitySearchWrapper.find('.city').simulate('focus');
+    expect(CitySearchWrapper.state('showSuggestions')).toBe(true);
+    expect(CitySearchWrapper.find('.suggestions').prop('style')).not.toEqual({ display: 'none' });
+  });
+
+  test("selecting a suggestion should hide the suggestions list", () => {
+    CitySearchWrapper.setState({
+      query: 'Berlin',
+      showSuggestions: undefined
+    });
+    CitySearchWrapper.find('.suggestions li').at(0).simulate('click');
+    expect(CitySearchWrapper.state('showSuggestions')).toBe(false);
+    expect(CitySearchWrapper.find('.suggestions').prop('style')).toEqual({ display: 'none' });
+});
 });
