@@ -39,7 +39,7 @@ describe('<Event /> component', () => {
     EventWrapper.setState({
       isDisplay: false
     });
-    expect(EventWrapper.find('.hidden')).toHaveLength(2);
+    expect(EventWrapper.find('.hidden')).toHaveLength(3);
 
     EventWrapper.find('.details-btn').simulate('click');
     expect(EventWrapper.state('isDisplay')).toBe(true);
@@ -52,10 +52,10 @@ describe('<Event /> component', () => {
     EventWrapper.setState({
       isDisplay: true
     });
-    expect(EventWrapper.find('.show')).toHaveLength(2);
+    expect(EventWrapper.find('.show')).toHaveLength(3);
     EventWrapper.find('.details-btn').simulate('click');
     expect(EventWrapper.state('isDisplay')).toBe(false);
-    expect(EventWrapper.find('.hidden')).toHaveLength(2);
+    expect(EventWrapper.find('.hidden')).toHaveLength(3);
   });
 
 });

@@ -77,4 +77,29 @@ describe('<App /> integration', () => {
     AppWrapper.unmount();
   });
 
+  test('App passes "eventCount" state as a prop to NumberOfEvents', () => {
+    const AppWrapper = mount(<App />);
+    const AppEventCountState = AppWrapper.state('eventCount');
+    expect(AppEventCountState).not.toEqual(undefined);
+    expect(AppWrapper.find(NumberOfEvents).props().eventCount).toEqual(AppEventCountState);
+    //console.log(AppWrapper.debug());
+    AppWrapper.unmount();
+  });
+
+  test('get the specified number of events mentioned in eventCount', async () => {
+    const AppWrapper = mount(<App />);
+    const NumberOfEventsWrapper = AppWrapper.find(NumberOfEvents);
+    
+    const eventObject = { target: { value: 2 }};
+    await NumberOfEventsWrapper.find('.eventNumber').simulate('change', eventObject);
+
+    const numEvents = AppWrapper.state('eventCount');
+    const allEvents = await getEvents();
+    //const eventsToShow = allEvents.filter((event,index) => index < numEvents);
+    const eventsToShow = allEvents.slice(0, numEvents);
+    //console.log(eventsToShow.length);
+    expect(AppWrapper.state('eventCount')).toEqual(numEvents);
+    expect(AppWrapper.state('events')).toEqual(eventsToShow);
+    AppWrapper.unmount();
+  });
 });

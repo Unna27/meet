@@ -11,26 +11,40 @@ import { getEvents, extractLocations } from './api';
 class App extends Component {
   state = {
     events: [],
-    locations: []
+    locations: [],
+    eventCount: 5
   }
 
   // update events, when a suggestion list has been clicked in CitySearch
-  updateEvents = (location) => {
+  updateEvents = (location, numEvents) => {
     getEvents().then((events) => {
-      const locationEvents = (location === 'all') ?
-      events :
-      events.filter((event) => event.location === location);
-      this.setState({
-        events: locationEvents
-      });
+      if(location!==undefined){
+        const locationEvents = (location === 'all') ?
+        events.slice(0, this.state.eventCount) :
+        events.filter((event) => event.location === location);
+        this.setState({
+          events: locationEvents.slice(0, this.state.eventCount)
+        });
+      }
+      if(numEvents!==undefined){
+        const numofEventsList = events.slice(0, numEvents);
+        this.setState({
+          events: numofEventsList,
+          eventCount: numEvents
+        });
+      }
     });
+   
   }
 
   componentDidMount() {
     this.mounted = true;
     getEvents().then((events) => {
       if (this.mounted) {
-        this.setState({ events, locations: extractLocations(events) });
+        this.setState({ 
+          events: events.slice(0, this.state.eventCount),
+          locations: extractLocations(events) 
+        });
       }
     });
   }
@@ -43,7 +57,7 @@ class App extends Component {
     return (
         <div className='App'>
           <CitySearch locations={this.state.locations} updateEvents={this.updateEvents} />
-          <NumberOfEvents />
+          <NumberOfEvents eventCount={this.state.eventCount} updateEvents={this.updateEvents} />
           <EventList events={this.state.events} />
         </div>
       );
