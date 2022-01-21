@@ -41,7 +41,7 @@ defineFeature(feature, test => {
       });
 
       then('the user should receive a list of cities (suggestions) that match what they’ve typed', () => {
-        expect(CitySearchWrapper.find('.suggestions li')).toHaveLength(2);
+        expect(CitySearchWrapper.find('.suggestions li')).toHaveLength(2); // includes Berlin and All Cities options
       });
     });
     
@@ -67,7 +67,10 @@ defineFeature(feature, test => {
       });
 
       and('the user should receive a list of upcoming events in that city', () => {
-        expect(AppWrapper.find('.event')).toHaveLength(mockData.length);
+        AppWrapper.update();
+        //console.log(AppWrapper.debug());
+        expect(AppWrapper.find('.event')).toHaveLength(2);
+        AppWrapper.unmount();
       });
     });
 });
