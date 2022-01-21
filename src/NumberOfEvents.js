@@ -14,8 +14,8 @@ class NumberOfEvents extends Component {
         <input
           type='number'
           className='eventNumber'
-          value={this.props.eventCount}
-          onChange={this.handleInputChanged}
+          defaultValue={this.props.eventCount}
+          onBlur={this.handleInputChanged}
         />
       </div>
     );

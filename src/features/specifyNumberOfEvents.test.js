@@ -36,7 +36,7 @@ defineFeature(feature, test => {
 
     when('the user provides a number (e.g. 2) in “number of events” field', async() => {
       NumberOfEventsWrapper = AppWrapper.find(NumberOfEvents);
-      await NumberOfEventsWrapper.find('.eventNumber').simulate('change', { target: { value: 2 }});
+      await NumberOfEventsWrapper.find('.eventNumber').simulate('blur', { target: { value: 2 }});
     });
 
     then('the user should see the specified number of events being displayed aligned according to the screen size', () => {

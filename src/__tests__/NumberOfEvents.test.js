@@ -15,10 +15,10 @@ describe('<NumberOfEvents /> component', () => {
   });
 
   test('renders text input correctly', () => {
-    expect(NumberOfEventsWrapper.find('.eventNumber').prop('value')).toBe(numEvents);
+    expect(NumberOfEventsWrapper.find('.eventNumber').prop('defaultValue')).toBe(numEvents);
   });
 
   test('number of Events should be numeric', () => {
-    expect(Number.isNaN(-NumberOfEventsWrapper.find('.eventNumber').prop('value'))).toBe(false)
+    expect(Number.isNaN(-NumberOfEventsWrapper.find('.eventNumber').prop('defaultValue'))).toBe(false)
   })
 });

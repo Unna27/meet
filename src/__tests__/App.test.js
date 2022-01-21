@@ -91,7 +91,7 @@ describe('<App /> integration', () => {
     const NumberOfEventsWrapper = AppWrapper.find(NumberOfEvents);
     
     const eventObject = { target: { value: 2 }};
-    await NumberOfEventsWrapper.find('.eventNumber').simulate('change', eventObject);
+    await NumberOfEventsWrapper.find('.eventNumber').simulate('blur', eventObject);
 
     const numEvents = AppWrapper.state('eventCount');
     const allEvents = await getEvents();
