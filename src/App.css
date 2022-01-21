@@ -2,6 +2,7 @@
 .App {
   text-align: center;
   padding: 2% 5%;
+  background-color: rgb(250,235,215);
 }
 
 .App * {
@@ -35,6 +36,7 @@ p {
 
 label {
   color:rgba(168,22, 242, 0.75);
+  font-weight: bold;
 }
 
 input[type="text"],
@@ -112,6 +114,7 @@ input[type="number"] {
 
 .details-btn:hover {
   box-shadow: 0 0 6px #808080;
+  color:rgba(168,22, 242, 0.75)
 }
 
 .numberOfEvents {
