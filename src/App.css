@@ -37,6 +37,7 @@ p {
 label {
   color:rgba(168,22, 242, 0.75);
   font-weight: bold;
+  width: 250px;
 }
 
 input[type="text"],
@@ -50,28 +51,31 @@ input[type="number"] {
   align-self: center;
   height: 38px;
 }
-
-.city {
-  width: 250px;
-}
-
 .CitySearch {
   display: flex;
-  flex-direction: column;
-  flex-basis: 300px;
-  max-width: 300px;
+  flex-direction: row;
+  flex-basis: 250px;
+  max-width: 500px;
   margin: auto;
   position: relative;
+  flex-wrap: wrap;
+  text-align: start;
+}
+
+.CitySearch p {
+  flex: 0 1 100%
+}
+
+.city {
+  width: 200px;
 }
 
 .suggestions {
-  width: 250px;
-  position: absolute;
+  width: 200px;
   z-index: 2;
   align-self: center;
   margin: 0;
-  top: 43px;
-  font-size: 14px;
+  font-size: 12px;
   box-shadow: 10px 10px 16px -12px rgba(0, 0, 0, 0.75);
 }
 
@@ -118,10 +122,26 @@ input[type="number"] {
 }
 
 .numberOfEvents {
-  width: 200px;
-  margin: 20px auto;
-  text-align: center;
+  display: flex;
+  flex-direction: row;
+  flex-basis: 250px;
+  max-width: 500px;
+  margin: auto;
+  position: relative;
+  flex-wrap: wrap;
+  text-align: start;
 }
+
+.numberOfEvents p {
+  flex: 0 1 100%;
+  text-align: center
+}
+
+.eventNumber {
+  width: 200px;
+}
+
+
 
 @supports(display: grid) {
   .EventList {

@@ -12,7 +12,7 @@ class App extends Component {
   state = {
     events: [],
     locations: [],
-    eventCount: 5
+    eventCount: 32
   }
 
   // update events, when a suggestion list has been clicked in CitySearch
@@ -20,8 +20,8 @@ class App extends Component {
     getEvents().then((events) => {
       if(location!==undefined){
         const locationEvents = (location === 'all') ?
-        events.slice(0, this.state.eventCount) :
-        events.filter((event) => event.location === location);
+          events :
+          events.filter((event) => event.location === location);
         this.setState({
           events: locationEvents.slice(0, this.state.eventCount)
         });
