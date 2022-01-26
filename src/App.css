@@ -9,6 +9,10 @@
   box-sizing: border-box;
 }
 
+h2{
+  color:rgba(106, 22, 242, 0.75);
+}
+
 ul {
   padding: 0;
   list-style: none;
@@ -105,6 +109,14 @@ input[type="number"] {
   background-color: rgba(221, 221, 221, 0.75);
 }
 
+.event a .Alert p {
+  display: none;
+}
+
+.event a:hover .Alert p {
+  display: block;
+}
+
 .details-btn {
   position: absolute;
   right: 5px;
@@ -138,9 +150,23 @@ input[type="number"] {
 }
 
 .eventNumber {
-  width: 200px;
+  width: 100px;
 }
 
+#loadEvent {
+  width: 100px;
+  border-radius: 4px;
+  height: 2rem;
+  margin: 5px;
+  outline: none;
+  cursor: pointer;
+  color: blue;
+}
+
+#loadEvent:hover {
+  box-shadow: 0 0 6px #808080;
+  color:rgba(168,22, 242, 0.75)
+}
 
 
 @supports(display: grid) {
