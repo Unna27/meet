@@ -5,8 +5,8 @@ import './nprogress.css';
 import EventList from './EventList';
 import CitySearch from './CitySearch';
 import NumberOfEvents from './NumberOfEvents';
-
-import { getEvents, extractLocations } from './api';
+import WelcomeScreen from './WelcomeScreen';
+import { getEvents, extractLocations, checkToken, getAccessToken } from './api';
 import { WarningAlert } from './Alert';
 
 class App extends Component {
@@ -14,7 +14,8 @@ class App extends Component {
     events: [],
     locations: [],
     eventCount: 32,
-    warnText: ''
+    warnText: '',
+    showWelcomeScreen: undefined
   }
 
   // update events, when a suggestion list has been clicked in CitySearch
@@ -39,17 +40,24 @@ class App extends Component {
    
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     this.mounted = true;
-    getEvents().then((events) => {
-      if (this.mounted) {
-        this.setState({ 
-          events: events.slice(0, this.state.eventCount),
-          locations: extractLocations(events),
-          warnText: !navigator.onLine ? 'You are offline. Events data displayed might not be accurate.' : ''
-        });
-      }
-    });
+    const accessToken = localStorage.getItem('access_token');
+    const isTokenValid = (await checkToken(accessToken)).error ? false : true;
+    const searchParams = new URLSearchParams(window.location.search);
+    const code = searchParams.get("code");
+    this.setState({ showWelcomeScreen: !(code || isTokenValid )});
+    if((code || isTokenValid ) && this.mounted){
+      getEvents().then((events) => {
+        if (this.mounted) {
+          this.setState({ 
+            events: events.slice(0, this.state.eventCount),
+            locations: extractLocations(events),
+            warnText: !navigator.onLine ? 'You are offline. Events data displayed might not be accurate.' : ''
+          });
+        }
+      });
+    }
   }
 
   componentWillUnmount(){
@@ -57,6 +65,8 @@ class App extends Component {
   }
 
   render() {
+    if (this.state.showWelcomeScreen === undefined) return <div className="App" /> // empty App
+
     return (
         <div className='App'>
           <h2>List of Training Events</h2>
@@ -64,6 +74,7 @@ class App extends Component {
           <NumberOfEvents eventCount={this.state.eventCount} updateEvents={this.updateEvents} />
           <WarningAlert text={this.state.warnText} />
           <EventList events={this.state.events} />
+          <WelcomeScreen showWelcomeScreen={this.state.showWelcomeScreen} getAccessToken={() => { getAccessToken() }} />
         </div>
       );
     }
