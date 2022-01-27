@@ -19,9 +19,6 @@ class App extends Component {
 
   // update events, when a suggestion list has been clicked in CitySearch
   updateEvents = (location, numEvents) => {
-    if(!navigator.onLine){
-      console.log(WarningAlert);
-    }
     getEvents().then((events) => {
       if(location!==undefined){
         const locationEvents = (location === 'all') ?
