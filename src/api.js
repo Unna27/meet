@@ -47,11 +47,11 @@ export const getEvents = async () => {
     return mockData;
   }
 
-// check if user os offline , get parsed data from local storage to display events, no need to check for accesstoken
+// check if user is offline , get parsed data from local storage to display events, no need to check for accesstoken
   if (!navigator.onLine) {
     const data = localStorage.getItem("lastEvents");
     NProgress.done();
-    return data?JSON.parse(data).events:[];;
+    return data?JSON.parse(data).events:[];
   }
 
   const token = await getAccessToken();
