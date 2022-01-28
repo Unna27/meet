@@ -8,7 +8,7 @@ import NumberOfEvents from './NumberOfEvents';
 import WelcomeScreen from './WelcomeScreen';
 import { getEvents, extractLocations, checkToken, getAccessToken } from './api';
 import { WarningAlert } from './Alert';
-import { ScatterChart, Scatter, XAxis, YAxis, ZAxis, Legend, CartesianGrid, Tooltip } from 'recharts';
+import { ScatterChart, Scatter, XAxis, YAxis, ZAxis, Legend, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 
 class App extends Component {
   state = {
@@ -86,16 +86,16 @@ class App extends Component {
           <NumberOfEvents eventCount={this.state.eventCount} updateEvents={this.updateEvents} />
           <h4>Events in each City</h4>
           <WarningAlert text={this.state.warnText} />
-          <ScatterChart width={730} height={250}
-            margin={{ top: 20, right: 20, bottom: 10, left: 10 }}>
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis type="category" dataKey="city" name="city" />
-            <YAxis type="number" dataKey="number" name="number of events" />
-            <Tooltip cursor={{ strokeDasharray: '3 3' }} />
-            
-            <Scatter data={this.getData()} fill="#8884d8" />
-            <Scatter data={this.getData()} fill="#82ca9d" />
-          </ScatterChart>
+          <ResponsiveContainer height={250}>
+            <ScatterChart margin={{ top: 20, right: 20, bottom: 10, left: 10 }}>
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis type="category" dataKey="city" name="city" />
+              <YAxis allowDecimals={false} type="number" dataKey="number" name="number of events" />
+              <Tooltip cursor={{ strokeDasharray: '3 3' }} />
+              <Scatter data={this.getData()} fill="#8884d8" />
+              <Scatter data={this.getData()} fill="#82ca9d" />
+            </ScatterChart>
+          </ResponsiveContainer>
           <EventList events={this.state.events} />
           <WelcomeScreen showWelcomeScreen={this.state.showWelcomeScreen} getAccessToken={() => { getAccessToken() }} />
         </div>
