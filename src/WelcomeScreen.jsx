@@ -13,14 +13,14 @@ function WelcomeScreen(props) {
         <div class="google-btn">
           <div class="google-icon-wrapper">
             <img
-            class="google-icon"
+            className="google-icon"
             src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg"
             alt="Google sign-in"
             />
           </div>
           <button onClick={() => { props.getAccessToken() }}
             rel="nofollow noopener"
-            class="btn-text"
+            className="btn-text"
           >
             <b>Sign in with google</b>
           </button>
