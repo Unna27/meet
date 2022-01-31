@@ -43,10 +43,11 @@ class App extends Component {
 
 // generates array of city and total number of events fro each city. Chart-data
   getData = () => {
-    const {locations, events} = this.state;
+    const { locations, events} = this.state;
     const data = locations.map((location)=>{
       const number = events.filter((event) => event.location === location).length
       const city = location.split(', ').shift() // to get the first value (city) from the array
+      console.log(city + number);
       return {city, number};
     })
     return data;
@@ -54,21 +55,34 @@ class App extends Component {
 
   async componentDidMount() {
     this.mounted = true;
-    const accessToken = localStorage.getItem('access_token');
-    const isTokenValid = (await checkToken(accessToken)).error ? false : true;
-    const searchParams = new URLSearchParams(window.location.search);
-    const code = searchParams.get("code");
-    this.setState({ showWelcomeScreen: !(code || isTokenValid )});
-    if((code || isTokenValid ) && this.mounted){
-      getEvents().then((events) => {
+    if(window.location.href.startsWith("http://localhost")){
+      getEvents().then((events) =>{
         if (this.mounted) {
           this.setState({ 
             events: events.slice(0, this.state.eventCount),
             locations: extractLocations(events),
-            warnText: !navigator.onLine ? 'You are offline. Events data displayed might not be accurate.' : ''
+            showWelcomeScreen: false
           });
         }
       });
+    }
+    else {
+      const accessToken = localStorage.getItem('access_token');
+      const isTokenValid = (await checkToken(accessToken)).error ? false : true;
+      const searchParams = new URLSearchParams(window.location.search);
+      const code = searchParams.get("code");
+      this.setState({ showWelcomeScreen: !(code || isTokenValid )});
+      if((code || isTokenValid ) && this.mounted){
+        getEvents().then((events) => {
+          if (this.mounted) {
+            this.setState({ 
+              events: events.slice(0, this.state.eventCount),
+              locations: extractLocations(events),
+              warnText: !navigator.onLine ? 'You are offline. Events data displayed might not be accurate.' : ''
+            });
+          }
+        });
+      }
     }
   }
 
@@ -93,7 +107,6 @@ class App extends Component {
               <YAxis allowDecimals={false} type="number" dataKey="number" name="number of events" />
               <Tooltip cursor={{ strokeDasharray: '3 3' }} />
               <Scatter data={this.getData()} fill="#8884d8" />
-              <Scatter data={this.getData()} fill="#82ca9d" />
             </ScatterChart>
           </ResponsiveContainer>
           <EventList events={this.state.events} />
