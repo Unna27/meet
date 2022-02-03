@@ -40,7 +40,8 @@ const EventGenre = ({ events }) => {
         const value = (events.filter((event)=> event.summary.split(' ').includes(genre))).length; // filter the events summary that includes the specific genre into an array and then calculate its length
         return { name: genre, value };
       });
-      return data;
+      const filteredData=data.filter((d)=>d.value>0);
+      return filteredData;
     };
     setData(() => getData());  // set the state variable, whenever there is a change in events
   },[events]);
@@ -56,7 +57,7 @@ const EventGenre = ({ events }) => {
           outerRadius={80}
           fill='#8884d8'
           dataKey='value'
-          label={({ name, percent }) => percent!== 0 ? `${name} ${(percent * 100).toFixed(0)}%` : ''}
+          label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%` }
           //label = {renderCustomizedLabel}
         >
           {data.map((entry, index) => (
