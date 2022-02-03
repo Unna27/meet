@@ -1,9 +1,10 @@
 import React, {useEffect, useState} from 'react';
-import { PieChart, Pie, Cell, Legend, ResponsiveContainer  } from 'recharts';
+import { PieChart, Pie, Cell, ResponsiveContainer  } from 'recharts';
 
 const EventGenre = ({ events }) => {
   const [data, setData] = useState([]);
-  const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];  
+  const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#9F2B68'];  
+  /* to have custom label
   const RADIAN = Math.PI / 180;
   const renderCustomizedLabel = ({
     cx,
@@ -31,6 +32,7 @@ const EventGenre = ({ events }) => {
       </text>
     );
   };
+  */
   useEffect(()=>{
     const getData = () => {
       const genres = ['React', 'JavaScript', 'Node', 'jQuery', 'AngularJS']; // list of genres to be labeled in pie chart and checked against the events prop
@@ -50,12 +52,12 @@ const EventGenre = ({ events }) => {
           data={data}
           cx={200}
           cy={200}
-          labelLine={false}
+          //labelLine={false}
           outerRadius={80}
           fill='#8884d8'
           dataKey='value'
-          //label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
-          label = {renderCustomizedLabel}
+          label={({ name, percent }) => percent!== 0 ? `${name} ${(percent * 100).toFixed(0)}%` : ''}
+          //label = {renderCustomizedLabel}
         >
           {data.map((entry, index) => (
               <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
