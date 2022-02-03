@@ -30,7 +30,7 @@ class NumberOfEvents extends Component {
           className='eventNumber'
           defaultValue={this.props.eventCount}
         />
-        <button id = 'loadEvent' onClick={this.handleInputChanged}>Load Events</button>
+        <button id = 'loadEvent' onClick={this.handleInputChanged}>Refresh</button>
         <ErrorAlert text={this.state.errorText} />
       </div>
     );

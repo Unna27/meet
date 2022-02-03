@@ -21,7 +21,10 @@ const CityScatterPlot = ({ locations, events }) => {
     <ResponsiveContainer height={250}>
       <ScatterChart margin={{ top: 20, right: 20, bottom: 10, left: 10 }}>
         <CartesianGrid strokeDasharray="3 3"/>
-        <XAxis type="category" dataKey="city" name="city">
+        <XAxis type="category" dataKey="city" name="city"
+            style={{
+            fontSize: '0.6rem',
+         }}>
           <Label value="Cities" offset={0} position="insideBottom" />
         </XAxis>
         <YAxis 
@@ -32,7 +35,7 @@ const CityScatterPlot = ({ locations, events }) => {
           label={{value: 'number of events' , angle: -90, position: 'insideBottomLeft'}}
         />
         <Tooltip labelFormatter={() => 'Info'} cursor={{ strokeDasharray: '3 3' }} />
-        <Legend verticalAlign="top" height={36}/>
+        <Legend verticalAlign="top" align="right" height={36}/>
         <Scatter name="number of events by city" data={data} fill="#8884d8" />
       </ScatterChart>
     </ResponsiveContainer>
