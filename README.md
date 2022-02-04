@@ -67,8 +67,7 @@ user.
 
 ## Usage
 User Stories:
-
-[User Stories.docx](https://github.com/Unna27/meet/files/7802733/User.Stories.docx)
+[User Stories.docx](https://github.com/Unna27/meet/files/8001807/User.Stories.docx)
 
 
 ## Project Status
