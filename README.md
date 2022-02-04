@@ -71,14 +71,12 @@ User Stories:
 
 
 ## Project Status
-Project is: _in progress_
+Project is: _in review_
 
 
 ## Room for Improvement
 
-To do:
-- Allow users to visualize data using charts
-
+--
 
 ## Acknowledgements
 - This project was based on the CareerFoundry tutorial (https://careerfoundry.com/en/courses/become-a-web-developer/)
