@@ -20,6 +20,11 @@ class App extends Component {
     showWelcomeScreen: undefined
   }
 
+  // set eventCount value
+  setEventCount = (value) => {
+    this.setState({eventCount: value});
+  }
+
   // update events, when a suggestion list has been clicked in CitySearch
   updateEvents = (location, numEvents) => {
     getEvents().then((events) => {
@@ -86,7 +91,7 @@ class App extends Component {
         <div className='App'>
           <h2>List of Training Events</h2>
           <CitySearch locations={this.state.locations} updateEvents={this.updateEvents} />
-          <NumberOfEvents eventCount={this.state.eventCount} updateEvents={this.updateEvents} />
+          <NumberOfEvents eventCount={this.state.eventCount} updateEvents={this.updateEvents} updateEventCount={this.setEventCount} />
           <h4>Events in each City</h4>
           <WarningAlert text={this.state.warnText} />
           <div className='data-vis-wrapper'>
