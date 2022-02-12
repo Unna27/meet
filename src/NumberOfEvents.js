@@ -9,7 +9,7 @@ class NumberOfEvents extends Component {
   handleInputChanged = (event) => {
     //const value = document.getElementsByClassName('eventNumber')[0].value;
     const value= event.target.value;
-    this.props.updateEventCount();
+    this.props.updateEventCount(value);
     if(value <= 0 || value >32){
       this.setState({
           errorText: 'Enter a number between 1 and 32 to load the events'
