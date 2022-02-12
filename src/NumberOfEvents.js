@@ -6,8 +6,9 @@ class NumberOfEvents extends Component {
    errorText: ''
   }
 
-  handleInputChanged = () => {
-    const value = document.getElementsByClassName('eventNumber')[0].value;
+  handleInputChanged = (event) => {
+    //const value = document.getElementsByClassName('eventNumber')[0].value;
+     const value= event.target.value;
     if(value <= 0 || value >32){
       this.setState({
           errorText: 'Enter a number between 1 and 32 to load the events'
@@ -18,7 +19,6 @@ class NumberOfEvents extends Component {
       });
       this.props.updateEvents(undefined,value);
     }
-    
   }
 
   render() {
@@ -28,9 +28,10 @@ class NumberOfEvents extends Component {
         <input
           type='number'
           className='eventNumber'
-          defaultValue={this.props.eventCount}
+          value={this.props.eventCount}
+          onChange={this.handleInputChanged}
         />
-        <button id = 'loadEvent' onClick={this.handleInputChanged}>Refresh</button>
+        {/*<button id = 'loadEvent' onClick={this.handleInputChanged}>Refresh</button>*/}
         <ErrorAlert text={this.state.errorText} />
       </div>
     );
