@@ -6,7 +6,7 @@ describe('<NumberOfEvents /> component', () => {
   let NumberOfEventsWrapper, numEvents;
   beforeAll(() => {
     numEvents = 5;
-    NumberOfEventsWrapper = shallow(<NumberOfEvents eventCount={numEvents} updateEvents={() => {}} />);
+    NumberOfEventsWrapper = shallow(<NumberOfEvents eventCount={numEvents} updateEvents={() => {}} updateEventCount={()=> {}} />);
   });
  
 
@@ -15,10 +15,10 @@ describe('<NumberOfEvents /> component', () => {
   });
 
   test('renders text input correctly', () => {
-    expect(NumberOfEventsWrapper.find('.eventNumber').prop('defaultValue')).toBe(numEvents);
+    expect(NumberOfEventsWrapper.find('.eventNumber').prop('value')).toBe(numEvents);
   });
 
   test('number of Events should be numeric', () => {
-    expect(Number.isNaN(-NumberOfEventsWrapper.find('.eventNumber').prop('defaultValue'))).toBe(false)
+    expect(Number.isNaN(-NumberOfEventsWrapper.find('.eventNumber').prop('value'))).toBe(false)
   })
 });

@@ -53,6 +53,7 @@ defineFeature(feature, test => {
     given('the main page is open', () => {
       AppWrapper=mount(<App />)
       EventWrapper = shallow(<Event event={mockData[0]} />);
+      //console.log(EventWrapper.debug());
     });
 
     and('the user has viewed more detailed information about an event', () => {
